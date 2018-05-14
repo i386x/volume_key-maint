@@ -3,7 +3,16 @@
 ## Contents
 
 1. [Introduction](#introduction)
-1. [`libvolume_key` Binds to NSS Stack/GPGME/Itself](#)
+1. [`libvolume_key` Binds to NSS Stack/GPGME/Itself](#libvolume_key-binds-to-nss-stackgpgmeitself)
+   1. [`crypto.h` and `crypto.c`](#cryptoh-and-cryptoc)
+   1. [`kmip.h` and `kmip.c`](#kmiph-and-kmipc)
+   1. [`libvolume_key.h` and `libvolume_key.c`](#libvolume_keyh-and-libvolume_keyc)
+   1. [`nss_error.h`, `SECerrs.h`, `SSLerrs.h`, and `nss_error.c`](#nss_errorh-secerrsh-sslerrsh-and-nss_errorc)
+   1. [`ui.h` and `ui.c`](#uih-and-uic)
+   1. [`volume.h` and `volume.c`](#volumeh-and-volumec)
+   1. [`volume_luks.h` and `volume_luks.c`](#volume_luksh-and-volume_luksc)
+1. [`volume_key` Utility](#volume_key-utility)
+   1. [`volume_key.c`](#volume_keyc)
 
 ## Introduction
 
@@ -11,7 +20,7 @@ Notes about attempt to replace NSS stack by OpenSLL in `volume_key`.
 
 ## `libvolume_key` Binds to NSS Stack/GPGME/Itself
 
-Summary of what calls what in `volume_key`. Following per-each-c-or-h-file maps mets the format:
+Summary of what calls what in `libvolume_key`. Following per-each-c-or-h-file maps mets the format:
 ```
 <defined function or macro name> ":" (
     <volume_key function>
@@ -21,7 +30,7 @@ Summary of what calls what in `volume_key`. Following per-each-c-or-h-file maps 
 )*
 ```
 
-The line numbers refer to upstream changeset [`ecef526a51c5a276681472fd6df239570c9ce518`](https://pagure.io/volume_key/c/ecef526a51c5a276681472fd6df239570c9ce518?branch=master).
+The line numbers refer to upstream changeset [`ecef526a51c5a276681472fd6df239570c9ce518`](https://pagure.io/volume_key/tree/ecef526a51c5a276681472fd6df239570c9ce518).
 
 ### `crypto.h` and `crypto.c`
 
@@ -722,8 +731,11 @@ luks_open_with_packet:                              [line 854]
 
 ## `volume_key` Utility
 
+What calls what in `volume_key`.
+
 ### `volume_key.c`
 
+`volume_key.c` uses these NSS/GPGME/libvolume_key functions:
 ```
 error_exit:                                         [line 49]
 
