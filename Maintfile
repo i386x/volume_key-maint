@@ -16,13 +16,15 @@ setvar LICENSE 'MIT'
 setvar VERSION '0.0.0'
 
 setvar PKG_NAME 'volume_key'
-setvar PKG_VERSION '0.3.9'
+setvar PKG_VERSION '0.3.10'
 setvar UPSTREAM_REPO "ssh://git@pagure.io/${ProjectVars[PKG_NAME]}.git"
 
 # Project files:
 addfile license : LICENSE
 addfile version : VERSION
 addfile : .gitignore README.md
+addfile nss2openssl-license : nss2openssl/COPYING
+addfile nss2openssl-doc : nss2openssl/README.md
 addfile sources : Maintfile
 
 ###############################################################################
@@ -34,12 +36,17 @@ addfile sources : Maintfile
 tg_default() {
   echo 'Maintfile targets:'
   echo ''
+  echo '  distclean'
+  echo '    remove untracked and ignored files'
   echo '  get_repos'
   echo '    get upstream, downstream and package repos'
   echo '  missing'
   echo '    add missing files to the project root (LICENSE, README.md, and'
   echo '    VERSION) and update headers of source files (\project, \license,'
   echo '    and \version)'
+  echo '  revertpo'
+  echo '    revert the changes in *.po files back if only POT-Creation-Date'
+  echo '    has changed'
   echo ''
 }
 
@@ -55,3 +62,69 @@ target missing
 #
 # Get upstream, downstream and package repos.
 target get_repos
+
+##
+# distclean
+#
+# Remove untracked and ignored files.
+tg_distclean() {
+  # Remove ignored:
+  rm -f ABOUT-NLS
+  rm -f INSTALL
+  rm -f Makefile.in
+  rm -f aclocal.m4
+  rm -f admin/ar-lib
+  rm -f admin/compile
+  rm -f admin/config.guess
+  rm -f admin/config.rpath
+  rm -f admin/config.sub
+  rm -f admin/depcomp
+  rm -f admin/install-sh
+  rm -f admin/ltmain.sh
+  rm -f admin/missing
+  rm -f admin/py-compile
+  rm -f admin/test-driver
+  rm -rfd autom4te.cache/
+  rm -f config.h.in
+  rm -f configure
+  rm -f m4/*.m4
+  rm -f po/Makefile.in
+  rm -f po/Makefile.in.in
+  rm -f po/Makevars.template
+  rm -f po/Rules-quot
+  rm -f po/boldquot.sed
+  rm -f po/en@boldquot.header
+  rm -f po/en@quot.header
+  rm -f po/insert-header.sin
+  rm -f po/quot.sed
+  rm -f po/remove-potcdate.sin
+  rm -f po/volume_key.pot
+  rm -f po/*.gmo
+  # Remove untracked:
+  rm -f Makefile
+  rm -f config.h
+  rm -f config.log
+  rm -f config.status
+  rm -rfd lib/.deps/
+  rm -f libtool
+  rm -f po/Makefile
+  rm -f po/POTFILES
+  rm -f po/remove-potcdate.sed
+  rm -f po/stamp-po
+  rm -rfd python/.deps/
+  rm -f python/volume_key.py
+  rm -f python/volume_key_wrap.c
+  rm -rfd src/.deps/
+  rm -f stamp-h1
+  rm -rfd tests/.deps/
+  rm -f ${ProjectVars[PKG_NAME]}-[0-9].[0-9].[0-9].tar.xz
+  rm -f ${ProjectVars[PKG_NAME]}-[0-9].[0-9].[1-9][0-9].tar.xz
+}
+
+##
+# revertpo
+#
+# Revert the changes in *.po files back if only POT-Creation-Date has changed.
+tg_revertpo() {
+  revert_po
+}
