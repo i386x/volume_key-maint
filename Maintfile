@@ -87,6 +87,9 @@ tg_distclean() {
   rm -rfd autom4te.cache/
   rm -f config.h.in
   rm -f configure
+  rm -f contrib/Makefile.in
+  rm -f doc/Makefile.in
+  rm -f lib/Makefile.in
   rm -f m4/*.m4
   rm -f po/Makefile.in
   rm -f po/Makefile.in.in
@@ -100,23 +103,58 @@ tg_distclean() {
   rm -f po/remove-potcdate.sin
   rm -f po/volume_key.pot
   rm -f po/*.gmo
+  rm -f python/Makefile.in
+  rm -f python/python/Makefile.in
+  rm -f python/python3/Makefile.in
+  rm -f src/Makefile.in
+  rm -f tests/Makefile.in
   # Remove untracked:
   rm -f Makefile
   rm -f config.h
   rm -f config.log
   rm -f config.status
+  rm -f contrib/Makefile
+  rm -f doc/Makefile
   rm -rfd lib/.deps/
+  rm -rfd lib/.libs/
+  rm -f lib/Makefile
+  rm -f lib/libvolume_key.la
+  rm -f lib/libvolume_key_la-crypto.lo
+  rm -f lib/libvolume_key_la-kmip.lo
+  rm -f lib/libvolume_key_la-libvolume_key.lo
+  rm -f lib/libvolume_key_la-nss_error.lo
+  rm -f lib/libvolume_key_la-ui.lo
+  rm -f lib/libvolume_key_la-volume.lo
+  rm -f lib/libvolume_key_la-volume_luks.lo
   rm -f libtool
   rm -f po/Makefile
   rm -f po/POTFILES
   rm -f po/remove-potcdate.sed
   rm -f po/stamp-po
   rm -rfd python/.deps/
-  rm -f python/volume_key.py
-  rm -f python/volume_key_wrap.c
+  rm -f python/Makefile
+  rm -rfd python/python/.deps/
+  rm -rfd python/python/.libs/
+  rm -f python/python/Makefile
+  rm -f python/python/_volume_key.la
+  rm -f python/python/_volume_key_la-volume_key_wrap.lo
+  rm -f python/python/volume_key.py
+  rm -f python/python/volume_key_wrap.c
+  rm -rfd python/python3/.deps/
+  rm -rfd python/python3/.libs/
+  rm -f python/python3/Makefile
+  rm -f python/python3/_volume_key.la
+  rm -f python/python3/_volume_key_la-volume_key_wrap.lo
+  rm -f python/python3/volume_key.py
+  rm -f python/python3/volume_key_wrap.c
   rm -rfd src/.deps/
+  rm -rfd src/.libs/
+  rm -f src/Makefile
+  rm -f src/volume_key
+  rm -f src/volume_key-volume_key.o
   rm -f stamp-h1
   rm -rfd tests/.deps/
+  rm -f tests/Makefile
   rm -f ${ProjectVars[PKG_NAME]}-[0-9].[0-9].[0-9].tar.xz
   rm -f ${ProjectVars[PKG_NAME]}-[0-9].[0-9].[1-9][0-9].tar.xz
 }
